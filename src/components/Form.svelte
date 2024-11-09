@@ -111,4 +111,12 @@
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
   }
+
+  @media (max-width: 400px) {
+    form {
+      width: calc(100% - 80px);
+      padding: 20px;
+      margin: 10px;
+    }
+  }
 </style>

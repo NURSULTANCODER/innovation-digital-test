@@ -38,4 +38,9 @@
     margin-bottom: 20px; 
     color: #fff;
   }
+  @media (max-width: 640px) {
+    main {
+      padding: 20px 0;
+    }
+  }
 </style>
