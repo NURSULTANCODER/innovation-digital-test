@@ -3,7 +3,7 @@
   export let disabled = false;
 </script>
 
-<button on:click={onClick} disabled={disabled}>Отправить</button>
+<button on:click={onClick} disabled={disabled}>Send</button>
 
 <style>
   button { 

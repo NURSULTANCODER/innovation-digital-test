@@ -1,10 +1,18 @@
 <script>
   import Form from '../components/Form.svelte';
+  import AlertModal from '../components/AlertModal.svelte'
+  import { showAlert, alertType } from "../store.js";
+
+ 
 </script>
 
 <main>
   <h1>Hello</h1>
   <Form />
+  <AlertModal 
+    visible={showAlert} 
+    type={alertType} 
+  />
 </main>
 
 <style>

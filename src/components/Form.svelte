@@ -2,21 +2,52 @@
   import InputField from './InputField.svelte';
   import Checkbox from './Checkbox.svelte';
   import SubmitButton from './SubmitButton.svelte';
+  import { globalMessage, showAlert } from "../store.js";
 
-  let name = "";
-  let company = "";
-  let email = "";
-  let phone = "";
-  let subject = "";
-  let message = "";
+  
+
+  let name = $state("");
+  let company =  $state("");
+  let email =  $state("");
+  let phone =  $state("");
+  let subject =  $state("");
+  let message =  $state("");
   let consent = $state(false);
+  let emailValid = $state(true);
+  let phoneValid = $state(true);
+
+ 
+
+  function isValidEmail(email) {
+    const emailPattern = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+  }
+
+  function isValidPhone(phone) {
+    const phonePattern = /^[0-9]+$/; 
+    return phonePattern.test(phone);
+  }
 
   function handleSubmit() {
     if (!name || !company || !email || !message || !consent) {
-      alert("Пожалуйста, заполните все обязательные поля и подтвердите согласие.");
+      globalMessage.set("Пожалуйста, заполните все обязательные поля и подтвердите согласие.");
+      showAlert.set(true)
       return;
     }
-    alert("Форма успешно отправлена!");
+    if(!isValidEmail(email)) {
+      emailValid = false
+    }
+    if(!isValidPhone(phone)) {
+      phoneValid = false
+    }
+    if(!isValidPhone(phone) || !isValidEmail(email)) {
+      return true
+    }
+    globalMessage.set("Форма успешно отправлена!");
+    showAlert.set(true)
+    setTimeout(() => {
+      showAlert.set(false)
+    }, 3000)
   }
   function checboxToggle() {
     console.log();
@@ -25,7 +56,7 @@
   }
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
+<form>
   <div class="form-title">
     <h2 class="form-title__title">For business enquiries please use the form below</h2>
     <p class="formform-title__description">*Required</p>
@@ -33,8 +64,8 @@
 
   <InputField label="Name" required bind:value={name} />
   <InputField label="Company" required bind:value={company} />
-  <InputField label="E-mail" required type="email" bind:value={email} />
-  <InputField label="Phone" bind:value={phone} />
+  <InputField label="E-mail" required type="email" bind:value={email} valid={emailValid} />
+  <InputField label="Phone" bind:value={phone} valid={phoneValid} />
   <InputField label="Subject" bind:value={subject} />
   <InputField label="Message" required bind:value={message} />
   <Checkbox label="I accept Terms and Privacy Policy" bind:checked={consent} onToggle={checboxToggle} />

@@ -2,6 +2,7 @@
   export let label;
   export let type = "text";
   export let required = false;
+  export let valid = true;
   export let value = "";
   export let onInput = () => {};
 
@@ -27,6 +28,9 @@
   />
   {#if isInvalid()}
     <p class="error">Поле {label} обязательно для заполнения</p>
+  {/if}
+  {#if !valid}
+    <p class="error">Поле {label} написано не правильно</p>
   {/if}
 </div>
 
