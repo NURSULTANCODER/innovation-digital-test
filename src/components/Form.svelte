@@ -43,6 +43,8 @@
     if(!isValidPhone(phone) || !isValidEmail(email)) {
       return true
     }
+    emailValid = true
+    phoneValid = true
     globalMessage.set("Форма успешно отправлена!");
     showAlert.set(true)
     setTimeout(() => {
