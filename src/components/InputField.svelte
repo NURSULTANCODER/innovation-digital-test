@@ -61,7 +61,7 @@
     outline: none;
     /* padding-bottom: 10px; */
   }
-  input:focus ~ label {
+  .input-field:focus-within label {
     color: #fff;
   }
   .is-invalid { 
